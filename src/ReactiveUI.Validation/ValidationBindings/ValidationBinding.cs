@@ -66,7 +66,9 @@ namespace ReactiveUI.Validation.ValidationBindings
                 .Where(vm => vm != null)
                 .Select(
                     viewModel =>
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                         viewModel.ValidationContext
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                             .ResolveFor(viewModelProperty, strict)
                             .ValidationStatusChange)
                 .Switch()
@@ -113,7 +115,9 @@ namespace ReactiveUI.Validation.ValidationBindings
                 .Where(vm => vm != null)
                 .Select(
                     viewModel =>
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                         viewModel.ValidationContext
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                             .ResolveFor(viewModelProperty, strict)
                             .ValidationStatusChange)
                 .Switch()
@@ -156,7 +160,9 @@ namespace ReactiveUI.Validation.ValidationBindings
                 .Where(vm => vm != null)
                 .Select(
                     viewModel =>
+#pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
                         viewModel.WhenAnyValue(viewModelHelperProperty)
+#pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
                             .SelectMany(vy => vy.ValidationChanged))
                 .Switch()
                 .Select(vc => formatter.Format(vc.Text));
@@ -199,7 +205,9 @@ namespace ReactiveUI.Validation.ValidationBindings
                 .Where(vm => vm != null)
                 .Select(
                     viewModel =>
+#pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
                         viewModel.WhenAnyValue(viewModelHelperProperty)
+#pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
                             .SelectMany(vy => vy.ValidationChanged))
                 .Switch()
                 .Select(vc => new { ValidationChange = vc, Formatted = formatter.Format(vc.Text) });
@@ -238,7 +246,9 @@ namespace ReactiveUI.Validation.ValidationBindings
 
             var vcObs = view.WhenAnyValue(v => v.ViewModel)
                 .Where(vm => vm != null)
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                 .Select(vm => vm.ValidationContext.Text)
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                 .Select(formatter.Format);
 
             var updateObs = vcObs.Do(action)
@@ -275,7 +285,9 @@ namespace ReactiveUI.Validation.ValidationBindings
 
             var vcObs = view.WhenAnyValue(v => v.ViewModel)
                 .Where(vm => vm != null)
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                 .SelectMany(vm => vm.ValidationContext.ValidationStatusChange)
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                 .Select(vc => formatter.Format(vc.Text));
 
             var updateObs = BindToView(vcObs, view, viewProperty)
@@ -324,7 +336,11 @@ namespace ReactiveUI.Validation.ValidationBindings
             {
                 return valueChange
                    .Do(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
+#pragma warning disable CS8604 // 可能的 null 引用参数。
                        x => setter(target, x, viewExpression.GetArgumentsArray()),
+#pragma warning restore CS8604 // 可能的 null 引用参数。
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                        ex => LogHost.Default.Error(ex, $"{viewExpression} Binding received an Exception!"));
             }
 
@@ -335,7 +351,9 @@ namespace ReactiveUI.Validation.ValidationBindings
             return bindInfo
                 .Where(x => x.host != null)
                 .Do(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                     x => setter(x.host, x.val, viewExpression.GetArgumentsArray()),
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                     ex => LogHost.Default.Error(ex, $"{viewExpression} Binding received an Exception!"))
                 .Select(v => v.val);
         }

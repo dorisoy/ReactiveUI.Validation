@@ -76,7 +76,9 @@ namespace ReactiveUI.Validation.ValidationBindings
             var vcObs = view.WhenAnyValue(v => v.ViewModel)
                 .Where(vm => vm != null)
                 .Select(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                     viewModel => viewModel.ValidationContext
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                         .ResolveForMultiple(viewModelProperty, strict)
                         .Select(x => x.ValidationStatusChange)
                         .CombineLatest())
@@ -120,7 +122,9 @@ namespace ReactiveUI.Validation.ValidationBindings
             var vcObs = view.WhenAnyValue(v => v.ViewModel)
                 .Where(vm => vm != null)
                 .Select(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                     viewModel => viewModel.ValidationContext
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                         .ResolveForMultiple(viewModelProperty, strict)
                         .Select(x => x.ValidationStatusChange)
                         .CombineLatest())
@@ -162,7 +166,11 @@ namespace ReactiveUI.Validation.ValidationBindings
             {
                 return valueChange
                    .Do(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
+#pragma warning disable CS8604 // 可能的 null 引用参数。
                        x => setter(target, x.FirstOrDefault(msg => !string.IsNullOrEmpty(msg)) ?? string.Empty, viewExpression.GetArgumentsArray()),
+#pragma warning restore CS8604 // 可能的 null 引用参数。
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                        ex => LogHost.Default.Error(ex, $"{viewExpression} Binding received an Exception!"));
             }
 
@@ -173,7 +181,9 @@ namespace ReactiveUI.Validation.ValidationBindings
             return bindInfo
                 .Where(x => x.host != null)
                 .Do(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                     x => setter(x.host, x.val, viewExpression.GetArgumentsArray()),
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                     ex => LogHost.Default.Error(ex, $"{viewExpression} Binding received an Exception!"))
                 .Select(v => v.val);
         }

@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
-using Android.Support.Design.Widget;
+using Google.Android.Material.TextField;
 using ReactiveUI.Validation.Abstractions;
 using ReactiveUI.Validation.Exceptions;
 using ReactiveUI.Validation.Formatters;

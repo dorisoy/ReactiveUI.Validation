@@ -209,7 +209,11 @@ namespace ReactiveUI.Validation.Extensions
             if (viewExpression.GetParent().NodeType == ExpressionType.Parameter)
             {
                 return @this.Subscribe(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
+#pragma warning disable CS8604 // 可能的 null 引用参数。
                     x => setter(target, x, viewExpression.GetArgumentsArray()),
+#pragma warning restore CS8604 // 可能的 null 引用参数。
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                     ex => LogHost.Default.Error(ex, $"{viewExpression} Binding received an Exception!"));
             }
 
@@ -220,7 +224,9 @@ namespace ReactiveUI.Validation.Extensions
             return bindInfo
                 .Where(x => x.host != null)
                 .Subscribe(
+#pragma warning disable CS8602 // 取消引用可能出现的空引用。
                     x => setter(x.host, x.val, viewExpression.GetArgumentsArray()),
+#pragma warning restore CS8602 // 取消引用可能出现的空引用。
                     ex => LogHost.Default.Error(ex, $"{viewExpression} Binding received an Exception!"));
         }
     }
